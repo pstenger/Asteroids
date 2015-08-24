@@ -1,0 +1,70 @@
+Ryan Hooley and Phil Stenger
+
+Our asteroid program is a game inspired by the arcade classic
+built on gfx with c. From a user standpoint the game is played
+by controlling a space ship while you traverse a field of
+regenerating asteroids, trying to score the most points possible
+by destroying asteroids with your laser while also trying not
+to die by being hit by an asteroid for as long as possible.
+To a user the game has 4 means of input. The user can press the
+'W' key to fly forward,with a red boosting line showing behind
+the ship, they can press the 'A' or the 'D' keys to turn the ship
+clockwise or counterclockwise around the tip of the ship, or they
+can press 'O' to fire the laser. The ship is white and shoots red
+flames when it boosts through space, the lasers are green and the
+asteroids are a light blue. When an asteroid is hit with the laser,
+it disappears and splits into two smaller asteroids that move
+significantly faster and fly out at random trajectories from the
+center of the dead asteroid. If one of these smaller asteroids is
+hit they split in the same way as the larger one did into two even
+smaller and faster circles. If one of these is hit, it dies. The 
+asteroids are regenerating so that the maximum of 20 small ones,
+or 5 large are on the screen at one time. When an asteroid or the 
+ship reaches the limit of the screen, it appears on the other side,
+however the lasers do not, so that there can be a way to keep them 
+to a finite number. To make the game more fun we made the asteroids
+have different speeds and sizes and made the smaller asteroids
+come in larger numbers.    
+
+The program is structured to make efficient use of functions, so very little code is in main. The 
+function flyship is called in main, and then the program continues to operate in flyship until the user
+quits. flyship establishes the arrays for the asteroids and the array for the shots from the ship and
+sends them to an intialize function. The asteroid and shots arrays are both two dimensional, with
+each row representing an asteroid or shot, and then each column representing some trait . There are five columns, the
+first two of which are the x and y coordinates, respectively. The third element is the angle of travel,
+and the fourth element is the radius. The fifth element for the asteroid array is the speed of the 
+asteroid, but the fifth element of the shots array keeps track of whether the shots has been fired or
+not. After checking whether a key has been pressed, and carrying out the appropriate task, flyship moves
+to a series of if statements which keeps the ship on the screen by switching its coordinates when it 
+exceeds the bounds of the screen. Then a series of variables are set, which keep track of an invisible
+box around the ship to use for collision detection later. Then a series of functions are run. move_shots
+moves any shots that have been fired by the function shots, which runs when 'o' is pressed. The destroy
+function checks whether any asteroids overlap with shots by checking each asteroid's coordinates 
+compared to each fired shot's coordinates. A structure of if statements check the size of the asteroid
+and send it to the next level of asteroid and also cancel the shot that collided with it. Each asteroid
+level creates an additional asteroid, so that hitting an asteroid appears to break it into two smaller
+asteroids. To prevent an infinite number of asteroids from gradually filling the screen and also keep
+asteroids from disappearing when shot, when a particular small asteroid is hit, all asteroid fragments
+of its original asteroid disappear and a big one respawns in their place. The function 
+move_asteroids once called calls the function asteroids, which creates a big asteroid for every fourth row
+of the astr array. This is done this way so that every big asteroid is followed by three blank rows which
+can then be filled with smaller asteroids when it is hit. The move_asteroids function then checks each
+asteroid to see if it collided with the ship by checking its position relative to the ship, using the 
+variables x1, y1, x2 and y2 set earlier, which are mentioned above. There are two different if statements 
+each of which checks a different scenario of collision. If an asteroid is found to have collided
+with the ship, angle of the ship is reset to zero and the death function is called, which
+clears the screen, redraws the ship at the center of the screen and reinitializes the asteroids so
+that the ship doesn't respawn on top of an asteroid. Also in move_asteroid is a structure of conditionals
+similar to those in flyship which allow the asteroids to wrap around the screen. As the program runs, a 
+2D array called score keeps track of the lives and the points of the user. The score and lives are updated
+and then displayed at the end of each iteration. 
+
+
+To test the program we ran it many times and made changes  
+to the program to make it better. Examples of changes we made were, 
+how to randomize the trajectory of the asteroids, debugging the score
+board, and the resetting functions, making the asteroids actually 
+kill the player when they hit the space ship, making the lasers
+disappear when they hit as not to destroy multiple asteroids
+with every shot, ect. We ran the game many times and optimized     
+the player experience by making changes as we saw fit.
